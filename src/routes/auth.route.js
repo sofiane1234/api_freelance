@@ -1,6 +1,14 @@
+const { checkEmail, checkIdentity, checkPassword, validation } = require('../middlewares/validators');
 const express = require('express');
-const router = express.Router()
-authController = require('../controllers/auth.controller');
+const router = express.Router();
+const authController = require('../controllers/auth.controller');
+const verifyIsCompany = require('../middlewares/verifyIsCompany');
+const verifyIsFreelance = require('../middlewares/verifyIsFreelance');
+const verifyToken = require('../middlewares/verifyToken');
 
-router.post('/register', authController.register)
-router.post('/login', authController.login)
+router.post('/register', checkEmail, checkPassword, checkIdentity, validation, authController.register);
+router.post('/login', checkEmail, validation, authController.login);
+router.post('/company', verifyToken, verifyIsCompany, authController.registerCompany);
+router.post('/freelance', verifyToken, verifyIsFreelance, authController.registerFreelance);
+
+module.exports = router;
