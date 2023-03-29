@@ -4,7 +4,7 @@ const missionController = require('../controllers/mission.controller');
 const verifyToken = require('../middlewares/verifyToken');
 const verifyIsAdmin = require('../middlewares/verifyIsAdmin');
 const verifyIsCompany = require('../middlewares/verifyIsCompany');
-const verifyMissionBelongsToCompany = require('../middlewares/verifyMissionBelongsToCompany');
+const verifyMissionBelongsToCompany = require('../middlewares/verifyMissionToCompany');
 
 router.get("/missions", verifyToken, verifyIsCompany, missionController.getMyMissions);
 router.get("/:id", verifyToken, verifyIsCompany, verifyMissionBelongsToCompany, missionController.getMyMission);
